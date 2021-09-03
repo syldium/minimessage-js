@@ -1,0 +1,43 @@
+body {
+  background-color: #17171c;
+  color: #fcfcfc;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+}
+
+body > div {
+  margin-bottom: 16px;
+}
+
+textarea {
+  background-color: inherit;
+  color: inherit;
+  display: block;
+}
+
+pre {
+  font-family: monospace;
+  margin-top: 0;
+}
+
+.hover-source {
+  position: relative;
+  display: inline-block;
+}
+
+.hover {
+  position: absolute;
+  background-color: #100110;
+  border: 2px solid #180133;
+  visibility: hidden;
+  bottom: 100%;
+  left: 50%;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 0 #100110;
+  padding: 2px;
+  cursor: initial;
+}
+
+.hover-source:hover .hover {
+  visibility: visible;
+}
