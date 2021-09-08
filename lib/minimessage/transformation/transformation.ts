@@ -24,12 +24,14 @@ export function findTransformation(
   return null;
 }
 
-const color = 'color';
+const color = ['color', 'colour', 'c'];
 export const ColorTransformation: TextTransformation = {
   applicable: (name) =>
-    name === color || /^#[0-9A-F]{1,6}$/i.test(name) || isNamedColor(name),
+    color.includes(name) ||
+    /^#[0-9A-F]{1,6}$/i.test(name) ||
+    isNamedColor(name),
   apply: (component, name, args) => {
-    if (name === color) {
+    if (color.includes(name)) {
       if (args.length === 1) {
         name = args[0];
       } else {
