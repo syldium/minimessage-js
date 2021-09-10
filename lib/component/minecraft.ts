@@ -1,5 +1,6 @@
 import type { TextComponent } from './text';
 import type { HoverEvent } from './hover-event';
+import type { TranslatableComponent } from './translatable';
 
 export interface ComponentApparence {
   color: string;
@@ -26,4 +27,4 @@ export interface Component
   extra?: MinecraftComponent[];
 }
 
-export type MinecraftComponent = TextComponent;
+export type MinecraftComponent = TextComponent | TranslatableComponent;

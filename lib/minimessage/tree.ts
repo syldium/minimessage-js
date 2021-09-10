@@ -2,10 +2,9 @@ import type { Token } from './lexer';
 import { MinecraftComponent } from '../component/minecraft';
 import { text } from '../component/text';
 import { TokenType } from './lexer';
-import {
-  findTransformation,
-  Transformations
-} from './transformation/transformation';
+import { Transformations } from './transformation/transformation';
+import { Insertions } from './transformation/insertion';
+import { findApplicable } from './transformation/applicable';
 
 interface ComponentNode {
   component: MinecraftComponent;
@@ -48,7 +47,16 @@ export function tree(
           }
           break;
         }
-        const transformation = findTransformation(Transformations, name);
+        const insertion = findApplicable(Insertions, name);
+        if (insertion) {
+          const component = insertion.apply(name, args);
+          const text2 = text('');
+          component.extra = [text2];
+          current.extra = [component];
+          current = text2;
+          continue;
+        }
+        const transformation = findApplicable(Transformations, name);
         if (transformation) {
           try {
             const component = text('');

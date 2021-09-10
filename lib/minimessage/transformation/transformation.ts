@@ -2,26 +2,14 @@ import { isNamedColor } from '../../component/named-text-color';
 import { parseMiniMessage } from '../parser';
 import type { MinecraftComponent } from '../../component/minecraft';
 import type { ComponentDecoration } from '../../component/minecraft';
+import type { Applicable } from './applicable';
 
-export interface TextTransformation {
-  applicable: (name: string) => boolean;
+export interface TextTransformation extends Applicable {
   apply: (
     component: MinecraftComponent,
     name: string,
     args: readonly string[]
   ) => void;
-}
-
-export function findTransformation(
-  transformations: readonly TextTransformation[],
-  name: string
-): TextTransformation | null {
-  for (const transformation of transformations) {
-    if (transformation.applicable(name)) {
-      return transformation;
-    }
-  }
-  return null;
 }
 
 const color = ['color', 'colour', 'c'];
