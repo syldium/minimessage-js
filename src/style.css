@@ -9,15 +9,49 @@ body > div {
   margin-bottom: 16px;
 }
 
+#minimessage-editor {
+  position: relative;
+  height: 200px;
+}
+
 textarea {
   background-color: inherit;
   color: inherit;
-  display: block;
+  resize: none;
 }
 
-pre {
+#output {
   font-family: monospace;
   margin-top: 0;
+}
+
+#minimessage-string, #minimessage-highlighting {
+  margin: .5rem;
+  padding: .5rem;
+  width: calc(100% - 3rem);
+  height: 160px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+#minimessage-string, #minimessage-highlighting, #minimessage-highlighting * {
+  font-size: 15pt;
+  font-family: monospace;
+  line-height: 20pt;
+}
+
+#minimessage-string {
+  z-index: 1;
+  color: transparent;
+  background: transparent;
+  caret-color: #fcfcfc;
+}
+
+#minimessage-highlighting {
+  z-index: 0;
+  overflow: hidden;
 }
 
 .hover-source {
@@ -40,4 +74,12 @@ pre {
 
 .hover-source:hover .hover {
   visibility: visible;
+}
+
+.token.punctuation {
+  color: #999;
+}
+
+.token.tag-name {
+  color: #0cf;
 }

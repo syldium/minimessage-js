@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>MiniMessage App</title>
   </head>
   <body>
-    <div>
-      <label for="minimessage-string">MiniMessage</label>:
-      <textarea id="minimessage-string" spellcheck="false" cols="100" rows="8"></textarea>
+    <label for="minimessage-string">MiniMessage</label>:
+    <div id="minimessage-editor">
+      <textarea id="minimessage-string" spellcheck="false"></textarea>
+      <pre id="minimessage-highlighting" aria-hidden="true"><code id="minimessage-highlighting-content"></code></pre>
     </div>
     <div>
       <label for="output">Output</label>:
