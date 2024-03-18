@@ -1,16 +1,16 @@
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import dts from "vite-dts";
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
     build: {
         lib: {
             entry: resolve(__dirname, 'lib/main.ts'),
             name: 'MiniMessageDom',
-            fileName: (format) => `minimessage-dom.${format}.js`
+            fileName: 'minimessage-dom',
         },
         target: 'esnext',
         minify: false
     },
-    plugins: [dts()]
+    plugins: [dts({ rollupTypes: true })]
 });

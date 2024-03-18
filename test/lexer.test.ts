@@ -1,4 +1,3 @@
-import { diff } from 'jest-diff';
 import {
   compareTokens,
   createTagElements,
@@ -7,6 +6,7 @@ import {
   Token,
   TokenType
 } from '../lib/minimessage/lexer';
+import { describe, expect, it } from 'vitest';
 
 interface TokenOutput {
   start: number;
@@ -24,19 +24,16 @@ function format(tokens: readonly Token[], message: string): TokenOutput[] {
   }));
 }
 
-declare global {
-  namespace jest {
-    interface Matchers<R> {
-      toBeSameTokens(expected: readonly Token[]): R;
-    }
-  }
+interface TokenMatchers<R = unknown> {
+  toBeSameTokens: (expected: readonly Token[]) => R;
+}
+declare module 'vitest' {
+  interface Assertion<T = any> extends TokenMatchers<T> {}
+  interface AsymmetricMatchersContaining extends TokenMatchers {}
 }
 
 expect.extend({
-  toBeSameTokens(
-    input: string,
-    expected: readonly Token[]
-  ): jest.CustomMatcherResult {
+  toBeSameTokens(input: string, expected: readonly Token[]) {
     const received = lexer(input);
     const pass =
       Array.isArray(received) &&
@@ -44,15 +41,12 @@ expect.extend({
       expected.every((token: Token, index: number) =>
         compareTokens(token, received[index])
       );
-    const message = function (): string {
-      if (pass) {
-        return '';
-      }
-      return diff(format(expected, input), format(received, input))!;
-    };
     return {
-      message,
-      pass
+      message: () =>
+        `expected ${format(received, input)} to be ${format(expected, input)}`,
+      pass,
+      actual: format(received, input),
+      expected: format(expected, input)
     };
   }
 });

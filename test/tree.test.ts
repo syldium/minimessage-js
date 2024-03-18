@@ -4,6 +4,7 @@ import {
   createTokens,
   TokenType
 } from '../lib/minimessage/lexer';
+import { describe, expect, it } from 'vitest';
 
 // We do not test tags that follow each other here since the output is not flattened.
 describe('tree', function () {
